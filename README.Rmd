@@ -23,6 +23,10 @@ The following functions are implemented:
 hrbrpkghelpr::describe_ingredients()
 ```
 
+## TODO
+
+Support the offline [bloom filter searches](https://circl.lu/services/hashlookup/#querying-hashlookup-without-online-queries).
+
 ## Installation
 
 ```{r install-ex, results='asis', echo=FALSE, cache=FALSE}
@@ -33,6 +37,7 @@ hrbrpkghelpr::install_block()
 
 ```{r lib-ex}
 library(hashlookup)
+library(gt)
 
 # current version
 packageVersion("hashlookup")
@@ -47,17 +52,21 @@ hl_info()
 
 ### Individual lookups
 
-```{r individual}
-hl_query("8ED4B4ED952526D89899E723F3488DE4", "md5")
+```{r individual-01}
+hl_query("8ED4B4ED952526D89899E723F3488DE4", "md5") %>% gt::gt()
+```
 
-hl_query("FFFFFDAC1B1B4C513896C805C2C698D9688BE69F", "sha1")
+```{r individual-02}
+hl_query("FFFFFDAC1B1B4C513896C805C2C698D9688BE69F", "sha1") %>% gt::gt()
+```
 
-hl_query("301c9ec7a9aadee4d745e8fd4fa659dafbbcc6b75b9ff491d14cbbdd840814e9", "sha256")
+```{r individual-03}
+hl_query("301c9ec7a9aadee4d745e8fd4fa659dafbbcc6b75b9ff491d14cbbdd840814e9", "sha256") %>% str()
 ```
 
 ### Bulk lookups
 
-```{r bulk}
+```{r bulk-01}
 hl_query(
   hash = c(
     "6E2F8616A01725DCB37BED0A2495AEB2",
@@ -65,8 +74,11 @@ hl_query(
     "344428FA4BA313712E4CA9B16D089AC4"
   ),
   type = "md5"
-)
+) %>% 
+  gt::gt()
+```
 
+```{r bulk-02}
 hl_query(
   hash = c(
     "FFFFFDAC1B1B4C513896C805C2C698D9688BE69F",
@@ -74,7 +86,8 @@ hl_query(
     "FFFFFE4C92E3F7282C7502F1734B243FA52326FB"
   ),
   type = "sha1"
-)
+) %>% 
+  gt::gt()
 ```
 
 ## hashlookup Metrics

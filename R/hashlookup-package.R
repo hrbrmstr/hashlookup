@@ -1,9 +1,9 @@
-#' Query and Orchestate the CIRCL Hash Lookup Service
+#' Query and Orchestrate the CIRCL Hash Lookup Service
 #'
 #' CIRCL hash lookup (<https://circl.lu/services/hashlookup/>) is a public API to lookup
 #' hash values against known database of files. National Software Reference Library (NSRL)
 #' Reference Data Set (RDS) database is included and many others are
-#' also included. Tools are provided to query and orchestate the CIRCL hash lookup service.
+#' also included. Tools are provided to query and orchestrate the CIRCL hash lookup service.
 #'
 #' @md
 #' @name hashlookup
