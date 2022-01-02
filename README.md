@@ -5,7 +5,7 @@ developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.re
 [![Signed
 by](https://img.shields.io/badge/Keybase-Verified-brightgreen.svg)](https://keybase.io/hrbrmstr)
 ![Signed commit
-%](https://img.shields.io/badge/Signed_Commits-100%25-lightgrey.svg)
+%](https://img.shields.io/badge/Signed_Commits-80%25-lightgrey.svg)
 [![R-CMD-check](https://github.com/hrbrmstr/hashlookup/workflows/R-CMD-check/badge.svg)](https://github.com/hrbrmstr/hashlookup/actions?query=workflow%3AR-CMD-check)
 [![Linux build
 Status](https://travis-ci.org/hrbrmstr/hashlookup.svg?branch=master)](https://travis-ci.org/hrbrmstr/hashlookup)
@@ -33,6 +33,9 @@ The following functions are implemented:
 
 -   `hl_info`: Get information about the hash lookup database
 -   `hl_query`: Get information about a hash
+-   `md5`: Create hash digest from a file
+-   `sha1`: Create hash digest from a file
+-   `sha256`: Create hash digest from a file
 
 ## TODO
 
@@ -63,7 +66,7 @@ packageVersion("hashlookup")
 ``` r
 hl_info()
 ## Hash lookup API version: 1.2; NSRL Version: December 2021
-## Total keys: 4,244,318,228
+## Total keys: 4,244,312,952
 ## Modern RDS:   192,677,749
 ##     Legacy:   113,737,918
 ##        iOS:       931,242
@@ -162,14 +165,78 @@ hl_query(
 | 8654F11A | s_copypix.c          | 19541     | 559D049F44942683093A91BA19D0AF54 | 362            | 223222       | FFFFFF4DB8282D002893A9BAF00E9E9D4BA45E65 |              | nsrl_modern_rds | 1638670863.4064765 | NSRL   | 9B87A913B5D14CE8538C36B26669080A2A12941EA4C3EE38B2A518D02CC43F3A | 384:02YscBUiSYpskdI83vt6HlEezrM3bzQhMhgCaX:93cBUMF3vYHlEez6bF3aX | T1779297589AFF31228485A4FAB7429C1E7307C12B978BAE547DCE93A45F80178D5F4BE0 | wheel     | root      |
 | 8E51A269 | 358.git2-msvstfs.dll | 65        | 9E4C165089CBA3653484C3F23F1CBC67 | 362            | 201317       | FFFFFE4C92E3F7282C7502F1734B243FA52326FB |              | nsrl_modern_rds | 1638670863.3929653 | NSRL   | NA                                                               | NA                                                               | NA                                                                       | NA        | NA        |
 
+### Using provided file hash digest helpers
+
+``` r
+hl_query(
+  hash = md5(system.file("samples/s_copypix.txt", package = "hashlookup")),
+  type = "md5"
+) %>% str()
+## 'data.frame':    1 obs. of  9 variables:
+##  $ file_name: chr "./usr/share/mesa-source/src/mesa/swrast/s_copypix.c"
+##  $ file_size: chr "27759"
+##  $ md5      : chr "6E5201FE4EF9785CDA9E66C40EA5CEF5"
+##  $ sha_1    : chr "1E6784F93C728992CF12C9F8BA08D9FE9278C541"
+##  $ sha_256  : chr "B9EC639217677CDF876D04AF53263B09495FCC8F0803AFEC339195F9D3CE1C6B"
+##  $ ssdeep   : chr "384:P6B9UiS36xE96qssSMKMJqtHHlEHIzG3BdqxNhkcrb:w9UvjqNHlEHIzG3BdqxJrb"
+##  $ tlsh     : chr "T11CC2965886FB22224097E0FAB7C7592E6206C13B9747AF547DCD63985FD0274A9B0BF0"
+##  $ tar_gname: chr "wheel"
+##  $ tar_uname: chr "root"
+
+hl_query(
+  hash = sha1(system.file("samples/s_copypix.txt", package = "hashlookup")),
+  type = "sha1"
+) %>% str()
+## 'data.frame':    1 obs. of  9 variables:
+##  $ file_name: chr "./usr/share/mesa-source/src/mesa/swrast/s_copypix.c"
+##  $ file_size: chr "27759"
+##  $ md5      : chr "6E5201FE4EF9785CDA9E66C40EA5CEF5"
+##  $ sha_1    : chr "1E6784F93C728992CF12C9F8BA08D9FE9278C541"
+##  $ sha_256  : chr "B9EC639217677CDF876D04AF53263B09495FCC8F0803AFEC339195F9D3CE1C6B"
+##  $ ssdeep   : chr "384:P6B9UiS36xE96qssSMKMJqtHHlEHIzG3BdqxNhkcrb:w9UvjqNHlEHIzG3BdqxJrb"
+##  $ tlsh     : chr "T11CC2965886FB22224097E0FAB7C7592E6206C13B9747AF547DCD63985FD0274A9B0BF0"
+##  $ tar_gname: chr "wheel"
+##  $ tar_uname: chr "root"
+
+hl_query(
+  hash = sha256(system.file("samples/s_copypix.txt", package = "hashlookup")),
+  type = "sha256"
+) %>% str()
+## List of 12
+##  $ FileName               : chr "./usr/share/mesa-source/src/mesa/swrast/s_copypix.c"
+##  $ FileSize               : chr "27759"
+##  $ MD5                    : chr "6E5201FE4EF9785CDA9E66C40EA5CEF5"
+##  $ SHA-1                  : chr "1E6784F93C728992CF12C9F8BA08D9FE9278C541"
+##  $ SHA-256                : chr "B9EC639217677CDF876D04AF53263B09495FCC8F0803AFEC339195F9D3CE1C6B"
+##  $ SSDEEP                 : chr "384:P6B9UiS36xE96qssSMKMJqtHHlEHIzG3BdqxNhkcrb:w9UvjqNHlEHIzG3BdqxJrb"
+##  $ TLSH                   : chr "T11CC2965886FB22224097E0FAB7C7592E6206C13B9747AF547DCD63985FD0274A9B0BF0"
+##  $ tar:gname              : chr "wheel"
+##  $ tar:uname              : chr "root"
+##  $ hashlookup:parent-total: int 3
+##  $ parents                :'data.frame': 3 obs. of  12 variables:
+##   ..$ FileName          : chr [1:3] "https://ftp.lysator.liu.se/pub/OpenBSD//4.3//xenocara.tar.gz" NA "https://ftp.lysator.liu.se/pub/OpenBSD//4.4//xenocara.tar.gz"
+##   ..$ MD5               : chr [1:3] "8194DE4034BC50A8733A2C1D443A6147" "8F1D32C36AB321C3082C9E84C1505B90" "BA16D5AB00081354A29C8420C23D0F55"
+##   ..$ SHA-1             : chr [1:3] "AB85A2092A421DFCECBF4FFDCEE1CC92202E96EB" "100EFFEAAE1D3164C5902498EB5FE06D8D53699E" "D60BCB2011A5C28A1A57AEEE8ACD62F9F9F99671"
+##   ..$ SHA-256           : chr [1:3] "57C81EC8EE699F39EBA3290AD4804E463F6F38A67E06201804A27BE5D581F85E" "2512C69D16CA2D5DFE1A165BBC353894B3C20D407784C0F0BD2C880DFE0A6338" "1DE3A1C09DF47AFE80EA1BECFDA8E1E6DAFFFCA1A6D755402E42AFC0FD54C29B"
+##   ..$ SSDEEP            : chr [1:3] "3145728:M1EOqmnrAjV/d/xfKQzPL6b2ajFjsxIxSnNt82LOVp/J:M1nnrAjV/rSs+bJ4IsNt82LwlJ" NA "3145728:1yZBt9EzOk6/1+uUOLmLjhjHof+SpoEkVF+WpB:1yZT9EzOkO1D+oWsjU3B"
+##   ..$ TLSH              : chr [1:3] "T18338335AFC638F431746FE3F93148CBC5B0A6911DD1AF0AD464C1BEA66278B4C90D8E9" NA "T16038338DEDD2DF11BB1BBA6D31548C7C979E31826A55FE70490C23209D22C10EE6E8ED"
+##   ..$ FileSize          : chr [1:3] NA "1542102" NA
+##   ..$ PackageDescription: chr [1:3] NA "Mesa software rasteriser source -- development files\n This package contains the source to the Mesa software ra"| __truncated__ NA
+##   ..$ PackageMaintainer : chr [1:3] NA "Ubuntu Core Developers <ubuntu-devel@lists.ubuntu.com>" NA
+##   ..$ PackageName       : chr [1:3] NA "mesa-swx11-source" NA
+##   ..$ PackageSection    : chr [1:3] NA "libdevel" NA
+##   ..$ PackageVersion    : chr [1:3] NA "7.0.3~rc2-1ubuntu3" NA
+##  $ hashlookup:trust       : int 65
+```
+
 ## hashlookup Metrics
 
 | Lang | # Files |  (%) | LoC |  (%) | Blank lines |  (%) | # Lines |  (%) |
 |:-----|--------:|-----:|----:|-----:|------------:|-----:|--------:|-----:|
-| R    |       7 | 0.35 |  75 | 0.27 |          27 | 0.21 |      67 | 0.29 |
-| YAML |       2 | 0.10 |  35 | 0.12 |          10 | 0.08 |       2 | 0.01 |
-| Rmd  |       1 | 0.05 |  30 | 0.11 |          26 | 0.21 |      45 | 0.20 |
-| SUM  |      10 | 0.50 | 140 | 0.50 |          63 | 0.50 |     114 | 0.50 |
+| R    |       8 | 0.36 |  84 | 0.26 |          29 | 0.21 |     104 | 0.34 |
+| Rmd  |       1 | 0.05 |  42 | 0.13 |          30 | 0.22 |      48 | 0.16 |
+| YAML |       2 | 0.09 |  35 | 0.11 |          10 | 0.07 |       2 | 0.01 |
+| SUM  |      11 | 0.50 | 161 | 0.50 |          69 | 0.50 |     154 | 0.50 |
 
 clock Package Metrics for hashlookup
 

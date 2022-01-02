@@ -15,4 +15,5 @@
 #' @importFrom scales comma comma_format
 #' @import stringi
 #' @importFrom janitor clean_names
+#' @importFrom openssl sha1 md5 sha256
 "_PACKAGE"

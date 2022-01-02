@@ -89,6 +89,25 @@ hl_query(
   knitr::kable("markdown")
 ```
 
+### Using provided file hash digest helpers
+
+```{r built-ins}
+hl_query(
+  hash = md5(system.file("samples/s_copypix.txt", package = "hashlookup")),
+  type = "md5"
+) %>% str()
+
+hl_query(
+  hash = sha1(system.file("samples/s_copypix.txt", package = "hashlookup")),
+  type = "sha1"
+) %>% str()
+
+hl_query(
+  hash = sha256(system.file("samples/s_copypix.txt", package = "hashlookup")),
+  type = "sha256"
+) %>% str()
+```
+
 ## hashlookup Metrics
 
 ```{r cloc, echo=FALSE}
