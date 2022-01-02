@@ -39,6 +39,44 @@ packageVersion("hashlookup")
 
 ```
 
+### Hash lookup API info
+
+```{r info}
+hl_info()
+```
+
+### Individual lookups
+
+```{r individual}
+hl_query("8ED4B4ED952526D89899E723F3488DE4", "md5")
+
+hl_query("FFFFFDAC1B1B4C513896C805C2C698D9688BE69F", "sha1")
+
+hl_query("301c9ec7a9aadee4d745e8fd4fa659dafbbcc6b75b9ff491d14cbbdd840814e9", "sha256")
+```
+
+### Bulk lookups
+
+```{r bulk}
+hl_query(
+  hash = c(
+    "6E2F8616A01725DCB37BED0A2495AEB2",
+    "8ED4B4ED952526D89899E723F3488DE4",
+    "344428FA4BA313712E4CA9B16D089AC4"
+  ),
+  type = "md5"
+)
+
+hl_query(
+  hash = c(
+    "FFFFFDAC1B1B4C513896C805C2C698D9688BE69F",
+    "FFFFFF4DB8282D002893A9BAF00E9E9D4BA45E65",
+    "FFFFFE4C92E3F7282C7502F1734B243FA52326FB"
+  ),
+  type = "sha1"
+)
+```
+
 ## hashlookup Metrics
 
 ```{r cloc, echo=FALSE}

@@ -1,6 +1,6 @@
 Package: hashlookup
 Type: Package
-Title: hashlookup Title Goes Here Otherwise CRAN Checks Fail
+Title: Query and Orchestate the CIRCL Hash Lookup Service
 Version: 0.1.0
 Date: 2022-01-02
 Authors@R: c(
@@ -8,17 +8,23 @@ Authors@R: c(
            comment = c(ORCID = "0000-0001-5670-2640"))
   )
 Maintainer: Bob Rudis <bob@rud.is>
-Description: A good description goes here otherwise CRAN checks fail.
-URL: https://git.rud.is/hrbrmstr/hashlookup
-BugReports: https://git.rud.is/hrbrmstr/hashlookup/issues
+Description: CIRCL hash lookup (<https://circl.lu/services/hashlookup/>) is a public API to lookup
+    hash values against known database of files. National Software Reference Library (NSRL) 
+    Reference Data Set (RDS) database is included and many others are
+    also included. Tools are provided to query and orchestate the CIRCL hash lookup service.
+URL: https://github.com/hrbrmstr/hashlookup
+BugReports: https://github.com/hrbrmstr/hashlookup/issues
 Encoding: UTF-8
-License: AGPL
+License: MIT + file LICENSE
 Suggests:
     tinytest
 Depends:
     R (>= 3.6.0)
 Imports:
-    httr2,
-    jsonlite
+    httr,
+    jsonlite,
+    scales,
+    stringi,
+    janitor
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.2

@@ -4,15 +4,21 @@
 \name{hashlookup}
 \alias{hashlookup}
 \alias{hashlookup-package}
-\title{...}
+\title{Query and Orchestate the CIRCL Hash Lookup Service}
 \description{
-A good description goes here otherwise CRAN checks fail.
+CIRCL hash lookup (\url{https://circl.lu/services/hashlookup/}) is a public API to lookup
+hash values against known database of files. National Software Reference Library (NSRL)
+Reference Data Set (RDS) database is included and many others are
+also included. Tools are provided to query and orchestate the CIRCL hash lookup service.
+}
+\references{
+\href{https://circl.lu/services/hashlookup/}{CIRCL Hash Lookup}
 }
 \seealso{
 Useful links:
 \itemize{
-  \item \url{https://git.rud.is/hrbrmstr/hashlookup}
-  \item Report bugs at \url{https://git.rud.is/hrbrmstr/hashlookup/issues}
+  \item \url{https://github.com/hrbrmstr/hashlookup}
+  \item Report bugs at \url{https://github.com/hrbrmstr/hashlookup/issues}
 }
 
 }
