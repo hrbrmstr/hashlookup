@@ -37,7 +37,6 @@ hrbrpkghelpr::install_block()
 
 ```{r lib-ex}
 library(hashlookup)
-library(gt)
 
 # current version
 packageVersion("hashlookup")
@@ -53,11 +52,11 @@ hl_info()
 ### Individual lookups
 
 ```{r individual-01}
-hl_query("8ED4B4ED952526D89899E723F3488DE4", "md5") %>% gt::gt()
+hl_query("8ED4B4ED952526D89899E723F3488DE4", "md5") %>% knitr::kable("markdown")
 ```
 
 ```{r individual-02}
-hl_query("FFFFFDAC1B1B4C513896C805C2C698D9688BE69F", "sha1") %>% gt::gt()
+hl_query("FFFFFDAC1B1B4C513896C805C2C698D9688BE69F", "sha1") %>% knitr::kable("markdown")
 ```
 
 ```{r individual-03}
@@ -75,7 +74,7 @@ hl_query(
   ),
   type = "md5"
 ) %>% 
-  gt::gt()
+  knitr::kable("markdown")
 ```
 
 ```{r bulk-02}
@@ -87,7 +86,7 @@ hl_query(
   ),
   type = "sha1"
 ) %>% 
-  gt::gt()
+  knitr::kable("markdown")
 ```
 
 ## hashlookup Metrics
